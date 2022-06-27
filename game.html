@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+    <head><title>Rock Paper Scissors</title>
+        <style>
+            /* CSS */
+            * {
+                text-align: center;
+            }
+            table, td, th {  
+            border: 1px solid #ddd;
+            }
+
+            table {
+                border-collapse: collapse;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            th, td {
+                padding: 15px;
+            }
+            .button-1 {
+            background-color: #4D4AE8;
+            border-radius: 8px;
+            border-style: none;
+            box-sizing: border-box;
+            color: #FFFFFF;
+            cursor: pointer;
+            display: inline-block;
+            font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            height: 40px;
+            line-height: 20px;
+            list-style: none;
+            margin: 5px;
+            outline: none;
+            padding: 10px 16px;
+            position: relative;
+            text-align: center;
+            text-decoration: none;
+            transition: color 100ms;
+            vertical-align: baseline;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            }
+
+            .button-1:hover,
+            .button-1:focus {
+            background-color: #0004fff2;
+            }
+        </style>
+    </head>
+    <body>
+        <script>
+            comp_score = 0;
+            human_score = 0;
+            function generator(inp){
+                var x = ["Rock","Paper","Scissors"];
+                comp = x[Math.floor(Math.random()*x.length)];
+                console.log(comp);
+                s = "";
+                s += "<p>Computer Input is ";
+                s += comp;
+                s += ".<br>";
+                s += "Human Input is ";
+                s += inp;
+                s += ".<br>";
+                if(comp == inp){
+                    s += "<p>It is a Tie</p>";
+                }
+                else{
+                    if(comp == "Rock"){
+                        if(inp == "Paper"){
+                            s += "<p>Paper Covers Rock.<br>You Win.</p>";
+                            human_score+=1;
+                        }
+                        else{
+                            s += "<p>Rock smashes Scissors.<br>Computer Wins.</p>";
+                            comp_score+= 1;
+                        }
+                    }
+                    else if(comp == "Paper"){
+                        if(inp == "Rock"){
+                            s += "<p>Paper Covers Rock.<br>Computer Wins.</p>";
+                            comp_score+= 1;
+                        }
+                        else{
+                            s += "<p>Scissors Cuts Paper.<br>You Win.</p>";
+                            human_score+=1;
+                        }
+                    }
+                    else if(comp == "Scissors"){
+                        if(inp == "Rock"){
+                            s += "<p>Rock smashes Scissors.<br>You Win.</p>";
+                            human_score+=1;
+                        }
+                        else{
+                            s += "<p>Scissors Cuts Paper.<br>Computer Wins.</p>";
+                            comp_score+= 1;
+                        }
+                    }
+                }
+                p = "<tr> <th>Computer Score</th> <th>Human Score</th> </tr><tr><td>";
+                p += `${comp_score}</td><td>${human_score}</td></tr>`;
+                document.getElementById("Output").innerHTML =  s;
+                document.getElementById("Points").innerHTML = p;
+            };
+            function start(){
+                s = "Choose your Input from the below Options<br><button class='button-1' onclick=\"generator('Rock')\">Rock</button><button class='button-1' onclick=\"generator('Paper')\">Paper</button><button class='button-1' onclick=\"generator('Scissors')\">Scissors</button>";
+                document.getElementById("Start").innerHTML = s;
+                document.getElementById("Points").innerHTML = "";
+                document.getElementById("Output").innerHTML = "";
+                t = '<button class="button-1" onclick="end()">End Game</button>';
+                document.getElementById("End").innerHTML = t;
+            }
+            function end(){
+                s = "";
+                
+                if(comp_score > human_score){
+                    s += `Computer Wins the Game by ${comp_score-human_score} points.`;
+                }
+                else if(comp_score == human_score){
+                    s += "The Game is a Tie.";
+                }
+                else{
+                    s += `You Win the Game by ${human_score-comp_score} points.`;
+                }
+                human_score = 0;
+                comp_score = 0;
+                document.getElementById("Output").innerHTML =  s;
+                document.getElementById("Start").innerHTML = '<button class="button-1" onclick="start()">Start Game</button>';
+                document.getElementById("End").innerHTML = "";
+            };
+        </script>
+        <div id="Main">
+            <h1 style="text-align: center;">Welcome to Rock Paper Scissors Game</h1>
+            <div id="Start"><button class='button-1' onclick="start()">Start Game</button></div>
+            
+            <h1 id="Output"></h1>
+            <table id="Points"></table>
+            <div id="End"></div>
+        </div>
+        
+        
+    </body>
+</html>
